@@ -1,5 +1,8 @@
 package com.challenge.easy.string;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 /**
     # Sorting the Sentence
 
@@ -31,11 +34,52 @@ package com.challenge.easy.string;
  */
 public class SortingSentence {
 
-    public static String sortSentence(String s) {
-        return null;
+    public static String sortSentence(String s)
+    {
+        String[] words = s.split(" ");
+
+        Arrays.sort(words, new Comparator<String>() {
+            @Override
+            public int compare(String word1, String word2) {
+                // Extraer los numeros de las palabras
+                int n1 = getNum(word1) - 1;
+                int n2 = getNum(word2) - 1;
+                //return n1 < n2 ? -1 : (n1 == n2 ? 0 : 1);
+                return Integer.compare(n1, n2);
+            }
+
+        });
+        for (int i = 0; i < words.length; i++) {
+            words[i] = removeNumber(words[i]);
+        }
+
+        return String.join(" ", words);
+    }
+
+    private static int getNum(String word){
+        StringBuilder result = new StringBuilder();
+        int number = -1;
+        for (int i = 0; i < word.length(); i++) {
+            if(Character.isDigit(word.charAt(i))){
+                return Character.getNumericValue(word.charAt(i));
+            }
+        }
+        return -1;
+    }
+
+    private static String removeNumber(String word){
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < word.length(); i++) {
+            if(!Character.isDigit(word.charAt(i))){
+                result.append(word.charAt(i));
+            }
+        }
+        return result.toString();
     }
 
     public static void main(String[] args) {
-
+        String sentence = "This0 is1 a2 sentence3";
+        String sortedSentence = sortSentence(sentence);
+        System.out.println("Oración ordenada: " + sortedSentence);
     }
 }

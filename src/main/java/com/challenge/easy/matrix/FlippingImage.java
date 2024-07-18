@@ -34,10 +34,27 @@ package com.challenge.easy.matrix;
 public class FlippingImage {
 
     public static int[][] flipAndInvertImage(int[][] image) {
-        return null;
+        int n = image.length;
+        for (int i = 0; i < n; i++) {
+            // Voltear las filas
+            for (int j = 0; j < (n + 1) / 2; j++) { // For que intercambia el valor en la posicion j con el valor en la posicion (n - 1 - j)
+                int temp = image[i][j] ^ 1; // Invertir el bit durante el cambio
+                image[i][j] = image[i][n - 1 - j] ^ 1;
+                image[i][n - 1 - j] = temp;
+            }
+        }
+        return image;
     }
 
     public static void main(String[] args) {
+        int[][] image = {{1,1,0,0},{1,0,0,1},{0,1,1,1},{1,0,1,0}};
+        int[][] result = flipAndInvertImage(image);
 
+        for (int row[] : result){
+            for(int pixel : row){
+                System.out.print(pixel + " ");
+            }
+            System.out.println();
+        }
     }
 }

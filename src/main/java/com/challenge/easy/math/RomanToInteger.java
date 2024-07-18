@@ -1,5 +1,8 @@
 package com.challenge.easy.math;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
     # Roman to Integer
 
@@ -46,11 +49,44 @@ package com.challenge.easy.math;
  */
 public class RomanToInteger {
 
-    public static int romanToInt(String s) {
-        return 0;
+
+    private static final Map<Character, Integer> roman = new HashMap<>();
+
+    static {
+        roman.put('I', 1);
+        roman.put('V', 5);
+        roman.put('X', 10);
+        roman.put('L', 50);
+        roman.put('C', 100);
+        roman.put('D', 500);
+        roman.put('M', 1000);
+    }
+
+
+    public static int romanToInt(String s)
+    {
+        int result = 0;
+        int n = s.length();
+
+        for (int i = 0; i < n; i++){
+            int current = roman.get(s.charAt(i));
+            // Comprobar si no es el ultimo caracter y si el calor "current" es menor que el del siguiente caracter
+            if (i < n - 1 && current < roman.get(s.charAt(i + 1))){
+                result -= current; // Restar el valor actual del resultado (por ejemplo, en "IV" restar 1)
+            } else {
+                result += current;
+            }
+        }
+        return result;
     }
 
     public static void main(String[] args) {
-
+        RomanToInteger converter = new RomanToInteger(); // Crear una instancia del convertidor
+        // Probar la conversión con diferentes números romanos y imprimir los resultados
+        System.out.println(converter.romanToInt("III"));    // Output: 3
+        System.out.println(converter.romanToInt("IV"));     // Output: 4
+        System.out.println(converter.romanToInt("IX"));     // Output: 9
+        System.out.println(converter.romanToInt("LVIII"));  // Output: 58
+        System.out.println(converter.romanToInt("MCMXCIV"));
     }
 }

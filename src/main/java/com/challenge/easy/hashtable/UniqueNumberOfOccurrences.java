@@ -1,5 +1,10 @@
 package com.challenge.easy.hashtable;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 /**
     # Unique Number of Occurrences
 
@@ -26,10 +31,27 @@ package com.challenge.easy.hashtable;
 public class UniqueNumberOfOccurrences {
 
     public static boolean uniqueOccurrences(int[] arr) {
-        return false;
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int num : arr) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+        Set<Integer> occurencesSet = new HashSet<>();
+
+        for(int count : map.values()) {
+            if(!occurencesSet.add(count)) { // cuando se cumple que ya esta enla condicion se conv a true pero el if hace return de false
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
+        int[] arr1 = {1, 2, 2, 1, 1, 3};
+        int[] arr2 = {1, 2};
+        int[] arr3 = {-3, 0, 1, -3, 1, 1, 1, -3, 10, 0};
 
+        System.out.println("Input: [1, 2, 2, 1, 1, 3] -> Output: " + uniqueOccurrences(arr1)); // Esperado: true
+        System.out.println("Input: [1, 2] -> Output: " + uniqueOccurrences(arr2)); // Esperado: false
+        System.out.println("Input: [-3, 0, 1, -3, 1, 1, 1, -3, 10, 0] -> Output: " + uniqueOccurrences(arr3)); // Esperado: true
     }
 }

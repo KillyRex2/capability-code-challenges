@@ -1,5 +1,6 @@
 package com.challenge.easy.dynamic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,10 +34,66 @@ import java.util.List;
 public class PascalTriangle {
 
     public static List<List<Integer>> generate(int numRows) {
-        return null;
+        List<List<Integer>> triangle = new ArrayList<>();
+        for (int i = 1; i <= numRows; i++) {
+            triangle.add(generateRow(i));
+        }
+        return triangle;
     }
+
+    private static List<Integer> generateRow(int rowIndex) {
+        List<Integer> row = new ArrayList<>();
+        row.add(1);
+        for(int j = 1; j <= rowIndex; j++){
+            row.add(getValue(rowIndex, j));
+        }
+        return row;
+    }
+    private static int getValue(int rowIndex, int colIndex){
+        if(colIndex == 0 || colIndex == rowIndex){
+            return 1;
+        }
+        return getValue(rowIndex - 1, colIndex - 1) + getValue(rowIndex - 1, colIndex );
+    }
+/*
+    public static List<List<Integer>> generate(int numRows)
+    {
+        List<List<Integer>> triangle = new ArrayList<>();
+
+        for (int i = 0; i < numRows; i++){
+            triangle.add(generateRow(i));
+        }
+        return triangle;
+    }
+
+    private static List<Integer> generateRow(int rowIndex){
+        List<Integer> row = new ArrayList<>();
+        row.add(1);
+        for (int j = 1; j <= rowIndex; j++){
+            row.add(getValue(rowIndex, j));
+        }
+        return row;
+    }
+
+    private static int getValue(int rowIndex, int colIndex){
+        if (colIndex == 0 || colIndex == rowIndex){
+            return 1;
+        }
+
+        return getValue(rowIndex - 1, colIndex - 1) + getValue(rowIndex - 1, colIndex);
+    }
+ */
 
     public static void main(String[] args) {
+        int numRows = 5;
+        List<List<Integer>> result = generate(numRows);
+
+        for (List<Integer> row : result){
+            System.out.println(row);
+        }
 
     }
+
+
 }
+

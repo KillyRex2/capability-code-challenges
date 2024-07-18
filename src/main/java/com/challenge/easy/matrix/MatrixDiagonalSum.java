@@ -43,11 +43,28 @@ package com.challenge.easy.matrix;
  */
 public class MatrixDiagonalSum {
 
-    public static int diagonalSum(int[][] mat) {
-        return 0;
+    public static int diagonalSum(int[][] mat)
+    {
+        int diag1 = 0;
+        int diag2 = 0;
+        int sum = 0;
+        int n = mat.length;
+
+        for (int i = 0; i < n; i++) {
+            // Sumar elemento de la diagonal principal
+            sum += mat[i][i];
+            // Sumar elemento de la diagonal secundaria
+            // Evitar duplicar el centro en matrices de tamaño impar
+            if (i != n - 1 - i) {  // Si el el valor en el indice i es diferente al valor del que esta en el indice del ultimo elemento
+                sum += mat[i][n - 1 - i];
+            }
+        }
+        return sum;
     }
 
     public static void main(String[] args) {
+        int[][] mat = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        System.out.println(diagonalSum(mat));
 
     }
 }

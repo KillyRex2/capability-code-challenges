@@ -30,10 +30,25 @@ package com.challenge.easy.math;
 public class PalindromeNumber {
 
     public static boolean isPalindrome(int x) {
-        return false;
+
+        if(x < 0)
+            return false;
+
+
+        int original = x;
+        int reversed = 0;
+
+        while (x != 0) {
+            int lastDigit = x % 10; // obtener el ultimo digito
+            reversed = reversed * 10 + lastDigit; // Construir el numero invertido
+            x = x / 10;
+        }
+
+        return original == reversed;
     }
 
     public static void main(String[] args) {
-
+        int number = 12321;
+        System.out.println("¿El número " + number + " es un palíndromo? " + isPalindrome(number));
     }
 }
